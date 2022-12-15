@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "Send Email Page";
+}
+@if (!string.IsNullOrEmpty(ViewData["ErrorTitle"] as string))
+{
+    <h2>@ViewBag.ErrorTitle</h2>
+    <h2>@ViewBag.ErrorMessage</h2>
+}
+
+<h1>The Send Email Page</h1>
+
+<h3>your email was sent.</h3>
