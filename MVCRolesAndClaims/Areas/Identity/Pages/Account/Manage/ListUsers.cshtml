@@ -1,0 +1,25 @@
+﻿@page
+@model MVCRolesAndClaims.Areas.Identity.Pages.Account.Manage.ListUsersModel
+
+@{
+    ViewData["Title"] = "List Users";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.UserName</td>
+            </tr>
+            <p>@user.FirstName @user.LastName</p>
+            <p>@user.BirthDate.ToShortDateString()</p>
+            <img src="@user.ProfilePicture" alt="Profile picture" />
+        }
+    </tbody>
+</table>

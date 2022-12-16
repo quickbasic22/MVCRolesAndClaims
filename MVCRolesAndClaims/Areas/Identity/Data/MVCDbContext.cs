@@ -5,7 +5,7 @@ using MVCRolesAndClaims.Areas.Identity.Data;
 
 namespace MVCRolesAndClaims.Data;
 
-public class MVCDbContext : IdentityDbContext<AppUser>
+public class MVCDbContext : IdentityDbContext<AppUser, IdentityRole, string>
 {
     public MVCDbContext(DbContextOptions<MVCDbContext> options)
         : base(options)
