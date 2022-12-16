@@ -5,21 +5,54 @@
     ViewData["Title"] = "List Users";
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Username</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model.Users)
-        {
-            <tr>
-                <td>@user.UserName</td>
-            </tr>
-            <p>@user.FirstName @user.LastName</p>
-            <p>@user.BirthDate.ToShortDateString()</p>
-            <img src="@user.ProfilePicture" alt="Profile picture" />
-        }
-    </tbody>
-</table>
+<div id="Beginning">
+    <p>beginning of document</p>
+</div>
+
+<h1>All Users</h1>
+
+@if (Model.Users.Any())
+{
+    <a asp-action="Register" asp-controller="Account"
+    class="btn btn-primary mb-3" style="width:auto">
+    <p>Add new user</p>
+    </a>
+    foreach (var user in Model.Users)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                <p>User Id: @user.UserName</p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@user.FirstName</h5>
+                <h5 class="card-title">@user.LastName</h5>
+                <h5 class="card-title">@user.BirthDate</h5>
+            </div>
+            <div class="card-footer">
+                <a href="#Beginning" class="btn btn-danger">Edit</a>
+                <a href="#Ending" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            <p>No users created yet</p>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                <p>Use the button below to create a user</p>
+            </h5>
+            <a class="btn btn-primary" style="width:auto"
+            asp-area="Identity" asp-page="/Account/Register">
+            <p>Add new user</p>
+            </a>
+        </div>
+    </div>
+
+    <div id="Ending">
+        <p>end of document</p>
+    </div>
+}

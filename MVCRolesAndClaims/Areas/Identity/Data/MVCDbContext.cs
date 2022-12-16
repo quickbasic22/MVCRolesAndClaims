@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MVCRolesAndClaims.Areas.Identity.Data;
+using MVCRolesAndClaims.Areas.Identity.ViewModels;
 
 namespace MVCRolesAndClaims.Data;
 

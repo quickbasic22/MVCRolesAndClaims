@@ -11,14 +11,14 @@ namespace MVCRolesAndClaims.Areas.Identity.Data;
 public class AppUser : IdentityUser
 {
     [Display(Name = "First Name")]
-    public string? FirstName { get; set; }
+    public virtual string? FirstName { get; set; }
     [Display(Name = "Last Name")]
-    public string? LastName { get; set; }
+    public virtual string? LastName { get; set; }
     [Display(Name = "Birth Date")]
     [DataType(DataType.Date)]
-    public DateTime BirthDate { get; set; }
+    public virtual DateTime BirthDate { get; set; }
     [Display(Name = "Profile Picture")]
     [DataType(DataType.ImageUrl)]
-    public string? ProfilePicture { get; set; }
+    public virtual string? ProfilePicture { get; set; }
 }
 

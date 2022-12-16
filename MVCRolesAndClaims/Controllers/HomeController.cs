@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
+using MVCRolesAndClaims.Areas.Identity.Data;
 using MVCRolesAndClaims.Models;
 using System.Diagnostics;
 
@@ -7,11 +10,13 @@ namespace MVCRolesAndClaims.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly UserManager<AppUser> _userManager;
         private readonly ILogger<HomeController> _logger;
         public IEmailSender EmailSender { get; set; }
 
-        public HomeController(ILogger<HomeController> logger, IEmailSender emailSender)
+        public HomeController(UserManager<AppUser> userManager, ILogger<HomeController> logger, IEmailSender emailSender)
         {
+            this._userManager = userManager;
             _logger = logger;
             this.EmailSender = emailSender;
         }
@@ -40,12 +45,25 @@ namespace MVCRolesAndClaims.Controllers
             {
                 await EmailSender.SendEmailAsync("quickbasic2017@gmail.com", subject, body);
             }
-            catch(Exception err) { }
+            catch (Exception err)
             {
-                
+
             }
 
             return View();
         }
+
+        public IActionResult ManageUsers(string id)
+        {
+            AppUser user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            if (user == null)
+            {
+                user = new AppUser();
+            }
+            ViewData["user"] = user;
+            return View(user);
+        }
     }
 }
+    
+

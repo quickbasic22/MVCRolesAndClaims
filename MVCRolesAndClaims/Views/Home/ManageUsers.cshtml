@@ -1,0 +1,25 @@
+﻿@model AppUser
+@using MVCRolesAndClaims.Areas.Identity.Data;
+@inject Microsoft.AspNetCore.Identity.SignInManager<AppUser> signin
+@{
+    ViewData["Title"] = "Manage Users";
+    AppUser myUser = ViewData["user"] as AppUser ?? new AppUser();
+}
+
+<h1>Manage Users</h1>
+
+@if (myUser != null && signin.IsSignedIn(User) && User.IsInRole("Admin"))
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Manage
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a asp-area="Identity" asp-page="/Account/Manage/ListUsers"
+        class="dropdown-item">Users</a>
+            <a asp-area="Identity" asp-page="/Account/Manage/"
+            class="dropdown-item">Roles</a>
+    </div>
+    </li>
+}
