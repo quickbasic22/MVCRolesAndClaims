@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 using MVCRolesAndClaims.Areas.Identity.Data;
 using MVCRolesAndClaims.Models;
+using MVCRolesAndClaims.ViewModels;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace MVCRolesAndClaims.Controllers
 {
@@ -62,6 +65,40 @@ namespace MVCRolesAndClaims.Controllers
             }
             ViewData["user"] = user;
             return View(user);
+        }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult CreateUser()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateUser(UserViewModel model)
+        {
+
+           if (ModelState.IsValid)
+            {
+
+            }
+           
+            return View();
+        }
+        [AllowAnonymous]
+        [HttpGet]
+        [HttpPost]
+        public async Task<IActionResult> IsEmailTaken(string Email = "quickbasic22@yahoo.com")
+        {
+            var user = await _userManager.FindByEmailAsync(Email);
+            if (user == null)
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json($"the provided {Email} is taken");
+            }
+            
         }
     }
 }
